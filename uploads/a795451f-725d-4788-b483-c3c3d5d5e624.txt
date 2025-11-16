@@ -1,0 +1,51 @@
+{ "id": "book-978-0321765723", "title": "The Art of Computer Programming, Vol. 1", "pricing": {"list_price":"69.99","sale_price":"62.50","currency":"USD"}, "pages":650 }
+{ "id": "food-10A", "item": "Organic Avocados (Bag of 4)" "price": "5.99", "origin": "Mexico", "details": { "unit": "bag", "organic": true, "sku": "SKU-45001', }
+
+<div id="service-list"><h3>Cleaning Services</h3><table><tr><td>Standard Clean</td><td>$35.00</td><td>3</td></tr></table></div>
+S-101,Music Basic,9.99,1,30
+item_id: U-505 type: Used Smartphone model: Pixel 7 condition: Good (7/10) price: $350 carrier: Unlocked notes: Minor screen scratch; no charger
+<script type="application/ld+json">{"@context":"http://schema.org","@type":"Event","name":"Downtown Farmers Market","startDate":"2026-05-02T09:00","endDate":"2026-05-02T13:00","location":{"@type":"Place","name":"City Park","address":"123 Main St"},"offers":{"@typeV":"Offer","price":"0.00","priceCurrency":"USD","availability":"http://schema.org/InStock"}}</script>
+T-001,Basic Tee,Red,M,150
+<div class="ad-banner">Buy 2 Get 1 Free!</div>
+var user = {id: 451, loggedIn: false, cart: ['book-978-0321765723']};
+Valid 0nly at: Downtown l0cati0n Expires: 12/31/2O25 Pr0m0 C0de: SAVE2O *Cannot be c0mbined with 0ther offers.
+-- Sample query from a tutorial SELECT order_id, customer_name, total FROM orders WHERE order_date >= '2026-01-01';
+price: 62.50 ListPrice: "$69.99" price_usd: "62.50" price_eur: "58.00"
+rating: "4.5" rating: "★★★★☆" is_digital: "true" is_digital: 1 stock_level: "20" stock_level: "In Stock"
+T-001,Basic Tee,Blue,L,120
+J-002,Denim Jeans,Indigo,32W,80
+OCR: hOme c1ean special - 25% OFF
+"price":"25,00 EUR","availability":"In Stock","ship_by":"03/04/2026"
+{ "sku":"B-100", "name":"Wireless Mouse", "price":"$25", "currency":"USD", "stock":200 }
+U-506 | Used Laptop | Model: XPS 13 | price: 750 USD | condition: Fair | notes: battery holds 60%
+S-103,News Plus,5,1,0
+{ "id":"ebook-1001","title":"Intro to ML","format":"epub","price":"0.00 USD","is_digital":true }
+SQL: SELECT * FROM products WHERE price < '50' AND stock_level != '0';
+malformed -> { "id": "coupon-99", "code": "SAVE50", "expires": "12/3/202" 
+weight_g: "450" weight_g: "N/A"
+product: "Handmade Soap", price: "3.50 USD", origin: "es: España"
+{ "id":"toy-900","name":"Wooden Train","price_eur":"19,99","stock":"20" }
+CSV row: S-104,Fitness Basic,7.5,1,14
+{"id":"book-978-1491950296","title":"Fluent Python","pricing":{"list_price":"59.99","sale_price":"49.99","currency":"USD"}}
+U-508 type: Used Headphones model: Beats Solo price: "$85" condition: Good
+{ "id":"food-12C", "item": "Sourdough Loaf", "price": "4.00", "unit": "each", "baker": "Local" }
+MALFORMED: {"id":"misc-1", "desc":"Broken JSON", "value":123,
+{ "id":"book-978-0262033848", "title": "Introduction to Algorithms", "pricing": {"list_price": "99.99", "sale_price": "89.00", "currency": "USD"}}
+ad-banner: "FREE SHIPPING over $50!"
+OCR-LIKE: Pr0m0 C0de: SAVE2O *Cannot be c0mbined with 0ther offers.
+<div><table><tr><td>Window Wash</td><td>20.00</td></tr></table></div>
+{ "id":"food-13D", "item":"Olive Oil 500ml", "price":"12,50 EUR", "origin":"Greece" }
+{ "id":"app-300","name":"NotePad Pro","monthly_fee":"3.99","users":"1","trial_days":"7"}
+SQL-SNIPPET: -- update stock SET stock = stock - 1 WHERE sku = 'T-001';
+cart: ['B-100','food-12C','T-004'] total_display: "€49,99"
+{ "id":"music-77", "album": "Top Hits 2025", "price": "9.99 USD", "format": "MP3" }
+Broken JSON quote: {"id":"x100","value":"test's}
+{ "id":"service-401","service":"Window Wash","rate":"20.00","min_hours":1}
+S-106,Health Gold,12.00,1,30
+Ambiguous: publish_date: "04/05/2026" (May 4th or April 5th?)
+{ "id":"grocery-201","item":"Brown Rice 5kg","price":"19.99","currency":"USD","stock":"40" }
+malformed_json_fragment: { "id": "food-14E", "item": "Canned Tuna", "price": "1.25" "units": "185g" }
+user_comment: "Is the Pixel 7 really unlocked? someone said carrier locked."
+{ "id":"book-978-0132350884","title":"Clean Code","pricing":{"list_price":"39.99","sale_price":"34.99","currency":"USD"}}
+note: "OCR errors are common in scanned flyers, such as 'hOme' (O/0) and 'c1ean' (l/1)."
+malformed_fragment_utf: {"text":"Downtown l0cati0n Expires: 12/31/2O25 Pr0m0 C0de: SAVE2O"}
