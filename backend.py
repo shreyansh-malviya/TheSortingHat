@@ -60,7 +60,7 @@ async def upload_file(
         
         # Generate unique filename
         file_extension = os.path.splitext(file.filename)[1]
-        unique_filename = f"{uuid.uuid4()}{file_extension}"
+        unique_filename = file.filename
         file_path = os.path.join(UPLOAD_DIR, unique_filename)
         
         # Save file
