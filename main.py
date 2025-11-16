@@ -155,3 +155,64 @@ for entity_id, schema in schemas.items():
             print(f"    → Migration saved: {migration_dir}/")
 
 print(f"\n✓ Schema registry saved to: ./schema_registry/")
+
+# ============================================================
+# ADD THIS AT THE END OF YOUR EXISTING main.py
+# (After the Schema Evolution section)
+# ============================================================
+
+# NEW: Phase 4 - Query Translation Demo
+# print("\n" + "=" * 60)
+# print("PHASE 4: NATURAL LANGUAGE QUERY DEMO")
+# print("=" * 60)
+#
+# try:
+#     from query_translator import NaturalLanguageQuerySystem
+#
+#     query_system = NaturalLanguageQuerySystem('./schema_registry')
+#
+#     # Demo queries
+#     demo_queries = [
+#         "Show me all products with price less than 50",
+#         "Find items with stock greater than 100",
+#         "List products ordered by rating descending"
+#     ]
+#
+#     print("\nDemo: Translating natural language to SQL\n")
+#
+#     for i, nl_query in enumerate(demo_queries[:2], 1):  # Show first 2
+#         print(f"{i}. Query: \"{nl_query}\"")
+#
+#         result = query_system.query(nl_query, database_type='postgresql')
+#
+#         if result['success']:
+#             print(f"   SQL: {result['query']}")
+#             print(f"   ✓ Valid query generated\n")
+#         else:
+#             print(f"   ✗ Error: {result['error']}\n")
+#
+#     print("💡 To test more queries interactively:")
+#     print("   python query_translator.py")
+#
+# except ImportError:
+#     print("\n⚠ query_translator.py not found")
+#     print("Make sure query_translator.py is in the same directory")
+# except Exception as e:
+#     print(f"\n⚠ Query translation failed: {e}")
+#
+# print("\n" + "=" * 60)
+# print("ALL PHASES COMPLETE!")
+# print("=" * 60)
+# print("""
+# Summary:
+#   ✓ Phase 1: Format detection + NER extraction
+#   ✓ Phase 2: Schema generation (PostgreSQL + MongoDB)
+#   ✓ Phase 3: Schema evolution tracking + migrations
+#   ✓ Phase 4: Natural language query translation
+#
+# Next Steps:
+#   1. Test query translation: python query_translator.py
+#   2. Test evolution: python test_evolution.py
+#   3. View results: cat ./schema_registry/registry.json
+# """)
+

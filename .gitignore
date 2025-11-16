@@ -1,3 +1,6 @@
 schemas
 .idea
 __pycache__
+migrations
+evolution_test
+uploads

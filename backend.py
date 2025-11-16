@@ -138,7 +138,7 @@ async def root():
 if __name__ == "__main__":
     import uvicorn
     # Option 1: Disable auto-reload (recommended for development)
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run(app, host="192.168.1.1", port=4000, reload=False)
     
     # Option 2: Run with reload but exclude .venv directory
     # uvicorn.run(
