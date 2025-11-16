@@ -1,8 +1,13 @@
-# Test on your sample data
 from etl_parser import parse_file
 from schema_generator import generate_schemas_from_etl_result
+from schema_evolution import SchemaEvolutionManager
+import json
+import os
 
-with open("input2.txt", "r") as f:
+# Initialize schema evolution manager
+schema_manager = SchemaEvolutionManager('./schema_registry')
+
+with open("input2.html", "r") as f:
     text = f.read()
 
 print("Calling parse_file with enable_ner=True...")
@@ -76,34 +81,77 @@ print(f"\nEntity types detected:")
 for label, count in entity_type_counts.most_common():
     print(f"  {label}: {count}")
 
-    # NEW: Show merged entities
-    if result.get('merged_entities'):
-        print("\n" + "=" * 60)
-        print("MERGED ENTITIES (Cross-Fragment Resolution)")
-        print("=" * 60)
+# NEW: Show merged entities
+if result.get('merged_entities'):
+    print("\n" + "=" * 60)
+    print("MERGED ENTITIES (Cross-Fragment Resolution)")
+    print("=" * 60)
 
-        for entity_id, merged in result['merged_entities'].items():
-            print(f"\nEntity: {entity_id}")
-            print(f"   Sources: {len(result['grouped_entities'][entity_id])} fragments")
+    for entity_id, merged in result['merged_entities'].items():
+        print(f"\nEntity: {entity_id}")
+        print(f"   Sources: {len(result['grouped_entities'][entity_id])} fragments")
 
-            # Show merged data
-            data = merged['merged_data']
-            print(f"   Merged fields: {len(data)}")
-            for key, value in list(data.items())[:10]:  # Show first 10 fields
-                print(f"      {key}: {value}")
+        # Show merged data
+        data = merged['merged_data']
+        print(f"   Merged fields: {len(data)}")
+        for key, value in list(data.items())[:10]:  # Show first 10 fields
+            print(f"      {key}: {value}")
 
-            # Show conflicts if any
-            if merged['conflicts']:
-                print(f"      Conflicts detected: {len(merged['conflicts'])}")
-                for conflict_key, values in merged['conflicts'].items():
-                    print(f"      {conflict_key}:")
-                    for v in values:
-                        print(f"         - {v['value']} (from {v['source']}, {v['format']})")
-
-
+        # Show conflicts if any
+        if merged['conflicts']:
+            print(f"      Conflicts detected: {len(merged['conflicts'])}")
+            for conflict_key, values in merged['conflicts'].items():
+                print(f"      {conflict_key}:")
+                for v in values:
+                    print(f"         - {v['value']} (from {v['source']}, {v['format']})")
 
 # NEW: Generate schemas
 schemas = generate_schemas_from_etl_result(result, output_dir='./schemas')
 
 print(f"\n✓ Generated {len(schemas)} schemas")
 print("Check ./schemas/ directory for SQL and JSON files")
+
+# NEW: Phase 3 - Schema Evolution
+print("\n" + "=" * 60)
+print("SCHEMA EVOLUTION TRACKING")
+print("=" * 60)
+
+for entity_id, schema in schemas.items():
+    entity_type = schema.get('category', entity_id)
+
+    # Register schema and detect changes
+    evolution_result = schema_manager.process_new_schema(entity_type, schema)
+
+    if evolution_result['is_initial']:
+        print(f"✓ {entity_id}: Initial version (v{evolution_result['version'].version})")
+    else:
+        version = evolution_result['version']
+        changes = evolution_result['changes']
+
+        print(f"\n✓ {entity_id}: Version {version.version}")
+        print(f"  Changes: {len(changes)}")
+
+        if evolution_result['breaking_changes']:
+            print(f"  ⚠ BREAKING CHANGES DETECTED")
+
+        # Show changes
+        for change in changes[:5]:
+            symbol = "⚠" if change.breaking else "→"
+            print(f"    {symbol} {change.change_type}: {change.field_name}")
+
+        # Save migration if there are changes
+        if evolution_result['migration'] and changes:
+            migration_dir = f"./migrations/{entity_id}"
+            os.makedirs(migration_dir, exist_ok=True)
+
+            # Save forward migration
+            with open(f"{migration_dir}/v{version.version}_forward.sql", 'w') as f:
+                f.write(evolution_result['migration']['forward'])
+
+            # Save view
+            with open(f"{migration_dir}/v{version.version}_view.sql", 'w') as f:
+                f.write(evolution_result['migration']['view'])
+
+            print(f"    → Migration saved: {migration_dir}/")
+
+print(f"\n✓ Schema registry saved to: ./schema_registry/")
