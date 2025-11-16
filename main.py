@@ -7,7 +7,7 @@ import os
 # Initialize schema evolution manager
 schema_manager = SchemaEvolutionManager('./schema_registry')
 
-with open("input2.html", "r") as f:
+with open("input.txt", "r") as f:
     text = f.read()
 
 print("Calling parse_file with enable_ner=True...")
