@@ -9,6 +9,7 @@ from datetime import datetime
 import os
 import uuid
 import shutil
+import subprocess
 
 app = FastAPI()
 
@@ -58,21 +59,58 @@ async def upload_file(
                 detail=f"File size exceeds maximum limit of {MAX_FILE_SIZE / (1024*1024)}MB"
             )
         
-        # Generate unique filename
-        file_extension = os.path.splitext(file.filename)[1]
-        unique_filename = file.filename
-        file_path = os.path.join(UPLOAD_DIR, unique_filename)
+        # Use original filename
+        file_path = os.path.join(UPLOAD_DIR, file.filename)
         
         # Save file
         with open(file_path, "wb") as f:
             f.write(contents)
+        
+        # Run Python script
+        script_execution = {
+            "executed": False,
+            "script_path": None,
+            "stdout": None,
+            "stderr": None,
+            "return_code": None
+        }
+        
+        # Define the Python script you want to run (change this to your script name)
+        SCRIPT_TO_RUN = "main.py"  # Change this to your script name
+        
+        if os.path.exists(SCRIPT_TO_RUN):
+            try:
+                # Run the script with the uploaded file path as an argument
+                result = subprocess.run(
+                    ["python", SCRIPT_TO_RUN, file_path],
+                    capture_output=True,
+                    text=True,
+                    timeout=30  # 30 second timeout
+                )
+                
+                script_execution["executed"] = True
+                script_execution["script_path"] = SCRIPT_TO_RUN
+                script_execution["stdout"] = result.stdout
+                script_execution["stderr"] = result.stderr
+                script_execution["return_code"] = result.returncode
+                
+            except subprocess.TimeoutExpired:
+                script_execution["executed"] = False
+                script_execution["script_path"] = SCRIPT_TO_RUN
+                script_execution["stderr"] = "Script execution timed out (30 seconds)"
+            except Exception as e:
+                script_execution["executed"] = False
+                script_execution["script_path"] = SCRIPT_TO_RUN
+                script_execution["stderr"] = f"Script execution error: {str(e)}"
+        else:
+            script_execution["stderr"] = f"Script '{SCRIPT_TO_RUN}' not found in current directory"
         
         # Prepare response
         response_data = {
             "success": True,
             "message": "File uploaded successfully",
             "data": {
-                "filename": unique_filename,
+                "filename": file.filename,
                 "original_name": file.filename,
                 "content_type": file.content_type,
                 "size": file_size,
@@ -80,7 +118,8 @@ async def upload_file(
                 "source_id": source_id,
                 "version": version,
                 "uploaded_at": datetime.utcnow().isoformat()
-            }
+            },
+            "script_execution": script_execution
         }
         
         return JSONResponse(content=response_data, status_code=200)
@@ -99,13 +138,13 @@ async def root():
 if __name__ == "__main__":
     import uvicorn
     # Option 1: Disable auto-reload (recommended for development)
-    # uvicorn.run(app, host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=False)
     
     # Option 2: Run with reload but exclude .venv directory
-    uvicorn.run(
-        app, 
-        host="0.0.0.0", 
-        port=8000, 
-        reload=True,
-        reload_excludes=[".venv/*", "*.pyc", "__pycache__"]
-    )
+    # uvicorn.run(
+    #     app, 
+    #     host="0.0.0.0", 
+    #     port=8000, 
+    #     reload=True,
+    #     reload_excludes=[".venv/*", "*.pyc", "__pycache__"]
+    # )
