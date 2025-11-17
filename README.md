@@ -2,7 +2,7 @@
 
 A comprehensive data processing system that automatically extracts, transforms, and loads data from unstructured files, generates schemas, tracks schema evolution, and enables natural language querying.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Directory Structure](#directory-structure)
@@ -14,7 +14,7 @@ A comprehensive data processing system that automatically extracts, transforms, 
 
 ---
 
-## 🎯 Overview
+## Overview
 
 **The Sorting Hat** is an intelligent ETL (Extract, Transform, Load) pipeline that:
 
@@ -26,20 +26,20 @@ A comprehensive data processing system that automatically extracts, transforms, 
 
 ### Key Features
 
-- 🔍 **Multi-format Detection**: JSON, CSV, HTML tables, YAML, Key-Value pairs, SQL, and more
-- 🤖 **NER Integration**: SpaCy and GLiNER for entity extraction
-- 📊 **Automatic Schema Generation**: PostgreSQL and MongoDB schemas
-- 🔄 **Schema Evolution Tracking**: Version control for schemas with migration scripts
-- 💬 **Natural Language Queries**: Convert plain English to SQL queries
+-  **Multi-format Detection**: JSON, CSV, HTML tables, YAML, Key-Value pairs, SQL, and more
+-  **NER Integration**: SpaCy and GLiNER for entity extraction
+-  **Automatic Schema Generation**: PostgreSQL and MongoDB schemas
+-  **Schema Evolution Tracking**: Version control for schemas with migration scripts
+-  **Natural Language Queries**: Convert plain English to SQL queries
 
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 TheSortingHat/
 │
-├── 📄 Core Python Files
+├── Core Python Files
 │   ├── backend.py              # FastAPI REST API server
 │   ├── etl_parser.py           # File parsing and format detection
 │   ├── schema_generator.py     # Schema generation from parsed data
@@ -47,13 +47,13 @@ TheSortingHat/
 │   ├── query_translator.py     # Natural language to SQL translation
 │   └── main.py                 # Standalone script for testing
 │
-├── 📂 Data Directories (auto-created)
+├── Data Directories (auto-created)
 │   ├── uploads/                # Uploaded files storage
 │   ├── schemas/                # Generated schema files (SQL/JSON)
 │   ├── records/                # Query results and ETL summaries
 │   └── schema_registry/        # Schema version registry (JSON)
 │
-└── 📄 Input Files (examples)
+└── Input Files (examples)
     ├── input.txt
     ├── input2.html
     └── input3.txt
@@ -61,7 +61,7 @@ TheSortingHat/
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -101,7 +101,7 @@ TheSortingHat/
 
 ---
 
-## 🔄 Code Flow
+## Code Flow
 
 ### Complete ETL Pipeline Flow
 
@@ -211,7 +211,7 @@ TheSortingHat/
 
 ---
 
-## 📚 Module Details
+## Module Details
 
 ### 1. `etl_parser.py` - File Parser & Format Detector
 
@@ -366,7 +366,7 @@ python main.py
 
 ---
 
-## 💻 Usage Examples
+## Usage Examples
 
 ### Example 1: Using the API
 
@@ -504,7 +504,7 @@ Execute a natural language query.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -542,7 +542,7 @@ fastapi run backend.py --port 5000
 
 ---
 
-## 📊 Data Flow Summary
+## Data Flow Summary
 
 ```
 Input File
@@ -560,7 +560,7 @@ Query Results
 
 ---
 
-## 🔍 Key Concepts
+## Key Concepts
 
 ### Fragments
 Detected data blocks in the input file (JSON objects, CSV rows, HTML tables, etc.)
@@ -579,22 +579,17 @@ Converting plain English questions into SQL queries using LLM
 
 ---
 
-## 📝 Notes
+## Notes
 
-- NER models (SpaCy, GLiNER) are optional - the system works without them
-- Query translation requires Ollama with phi3:mini model
+- NER models (SpaCy, GLiNER) are optional - the system works without them, but works best with them.
+- Query translation requires Ollama with phi3:mini model (or any model you can manually configure)[optional]
 - Schema registry is stored in JSON format in `schema_registry/`
 - All generated files are saved in respective directories
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 This is a comprehensive ETL pipeline system. Each module can be used independently or together through the FastAPI backend.
 
 ---
-
-## 📄 License
-
-[Your License Here]
-
